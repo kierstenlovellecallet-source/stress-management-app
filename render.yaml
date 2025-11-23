@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: stress-assessment
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT
+    env:
+      - key: SECRET_KEY
+        value: "CHANGE_ME"
+        sync: false
+      - key: ACCESS_TOKEN
+        value: ""
+        sync: false
