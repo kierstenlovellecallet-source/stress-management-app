@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stress Assessment Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div id="app">
+        <!-- Main Menu Screen -->
+        <div id="mainMenu" class="screen active">
+            <div class="container">
+                <h1>Stress Assessment Game</h1>
+                <div class="menu-options">
+                    <button class="btn btn-primary" onclick="startGame()">Start Game</button>
+                    <button class="btn btn-secondary" onclick="showInstructions()">Instructions</button>
+                    <button class="btn btn-danger" onclick="exitGame()">Exit</button>
+                    <button class="btn btn-primary share-btn" onclick="shareApp()">📤 Share</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Instructions Screen -->
+        <div id="instructions" class="screen">
+            <div class="container">
+                <h2>Instructions</h2>
+                <div class="instructions-content">
+                    <p>1. You will be presented with various questions.</p>
+                    <p>2. Select a number from 0 to 4 that corresponds to your situation.</p>
+                    <p>3. Your choices will help assess your stress levels.</p>
+                    <p>4. Try to be honest in your responses for accurate results.</p>
+                    <p><strong>Score Guide:</strong></p>
+                    <ul>
+                        <li>0 = Never</li>
+                        <li>1 = Almost Never</li>
+                        <li>2 = Sometimes</li>
+                        <li>3 = Fairly Often</li>
+                        <li>4 = Very Often</li>
+                    </ul>
+                </div>
+                <button class="btn btn-secondary" onclick="backToMenu()">Back to Menu</button>
+            </div>
+        </div>
+
+        <!-- Information Collection Screen -->
+        <div id="infoCollection" class="screen">
+            <div class="container">
+                <h2>Please fill out the following information</h2>
+                <div class="form-group">
+                    <label for="age">Enter your age:</label>
+                    <input type="number" id="age" placeholder="Age" min="1" max="100">
+                </div>
+                <div class="form-group">
+                    <label for="grade">Grade level:</label>
+                    <input type="text" id="grade" placeholder="e.g., Grade 11">
+                </div>
+                <div class="form-group">
+                    <label for="strand">Strand/Course:</label>
+                    <input type="text" id="strand" placeholder="e.g., STEM, ABM">
+                </div>
+                <button class="btn btn-primary" onclick="submitInfo()">Continue</button>
+            </div>
+        </div>
+
+        <!-- Questions Screen -->
+        <div id="questionsScreen" class="screen">
+            <div class="container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="question-counter" id="questionCounter">Question 1 of 10</div>
+                <div class="question-box">
+                    <p id="questionText"></p>
+                </div>
+                <div class="score-options">
+                    <button class="score-btn" onclick="submitAnswer(0)">0<br>Never</button>
+                    <button class="score-btn" onclick="submitAnswer(1)">1<br>Almost Never</button>
+                    <button class="score-btn" onclick="submitAnswer(2)">2<br>Sometimes</button>
+                    <button class="score-btn" onclick="submitAnswer(3)">3<br>Fairly Often</button>
+                    <button class="score-btn" onclick="submitAnswer(4)">4<br>Very Often</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results" class="screen">
+            <div class="container">
+                <h2>Your Results</h2>
+                <div class="results-content">
+                    <div class="result-item">
+                        <label>Score:</label>
+                        <p id="finalScore"></p>
+                    </div>
+                    <div class="result-item">
+                        <label>Stress Level:</label>
+                        <p id="stressLevel"></p>
+                    </div>
+                    <div class="result-item">
+                        <label>Advice:</label>
+                        <p id="advice"></p>
+                    </div>
+                </div>
+                <div class="results-actions">
+                    <button class="btn btn-primary" onclick="shareApp()">📤 Share App</button>
+                    <button class="btn btn-secondary" onclick="backToMenu()">Back to Menu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating share button for quick access -->
+    <button class="floating-share" onclick="shareApp()" title="Share App">📤</button>
+
+    <!-- Share modal -->
+    <div id="shareModal" class="share-modal" style="display:none;">
+        <div class="share-modal-backdrop" onclick="closeShareModal()"></div>
+        <div class="share-modal-content">
+            <h3>Share this app</h3>
+            <div class="share-grid">
+                <button class="share-item" onclick="shareTo('whatsapp')">📱<span>WhatsApp</span></button>
+                <button class="share-item" onclick="shareTo('telegram')">✈️<span>Telegram</span></button>
+                <button class="share-item" onclick="shareTo('facebook')">📘<span>Facebook</span></button>
+                <button class="share-item" onclick="shareTo('twitter')">🐦<span>Twitter</span></button>
+                <button class="share-item" onclick="shareTo('messenger')">💬<span>Messenger</span></button>
+                <button class="share-item" onclick="shareTo('email')">✉️<span>Email</span></button>
+                <button class="share-item" onclick="shareTo('copy')">🔗<span>Copy Link</span></button>
+                <button class="share-item" onclick="shareTo('native')">📤<span>Native Share</span></button>
+            </div>
+            <button class="btn btn-secondary" onclick="closeShareModal()">Close</button>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
